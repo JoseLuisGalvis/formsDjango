@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags  %}
+{% block content %}
+<h3 class="text-center">Formulario de Contacto</h3>
+<p class="fs-5 text-center px-5">Es un placer que puedas contactarnos. Nos pondremos en contacto contigo, en el menor tiempo posible</p>
+<div class="row">
+    <div class="col-md-6">
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form|crispy }}
+
+            <input class="btn btn-primary" type="submit" value="Enviar Mensaje" {% if 'ok' in request.GET %}disabled{% endif %}{% if 'error' in request.GET %}disabled{% endif %}>
+        </form>
+        {% if 'ok' in request.GET %}
+            <div class="alert alert-success mt-5" role="alert">
+                <strong>El mensaje se ha enviado correctamente</strong>
+            </div>
+        {% endif %}
+
+        {% if 'error' in request.GET %}
+            <div class="alert alert-danger mt-5" role="alert">
+                <strong>El mensaje no ha podido ser enviado. Por favor, intente más tarde</strong>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-6 mb-5">
+        <img class="float-start img-fluid" src={% static 'contact/img/arroba.jpg' %} alt="">
+    </div>
+</div>
+
+<hr>
+
+<div class="d-grid gap-2 col-6 mx-auto mb-5">
+    <a class="btn btn-info btn-lg" href={% url 'home' %}>Volver al Inicio</a>
+</div> 
+{% endblock %}
+        <!-- <h3 class="text-center">Formulario de Contacto</h3>
+        <p class="fs-5 text-center px-5">Es un placer que puedas contactarnos. Nos pondremos en contacto contigo, en el menor tiempo posible</p>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre y Apellido</label>
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">Nunca compartiremos el correo electrónico que indique a continuación</div> 
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Mensaje</label>
+                        {{ form.message }}
+                        {{ form.message.errors }}
+                     <textarea class="form-control" id="message" name="message" placeholder="Ingrese su mensaje aquí" rows="4"></textarea> 
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Enviar Mensaje">
+                </form>
+            </div>
+            
+            <div class="col-md-6 mb-5">
+                <img class="float-start img-fluid shadow-lg mb-5 bg-body rounded" src={% static 'contact/img/arroba.jpg' %} alt="">
+            </div>
+        </div>
+        
+        <hr>
+
+        <div class="d-grid gap-2 col-6 mx-auto mb-5">
+            <a class="btn btn-info btn-lg" href={% url 'home' %}>Volver al Inicio</a>
+        </div> -->    
